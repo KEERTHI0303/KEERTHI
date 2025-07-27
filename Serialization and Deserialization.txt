@@ -1,0 +1,131 @@
+Serailization:
+-->used to convert object into byte-stream.
+-->For serializing the object, we call the writeObject() method of ObjectOutputStream class.
+
+Deserailization:
+-->used to convert byte-stream into object.
+-->For deserialization we call the readObject() method of ObjectInputStream class.
+
+Serailization:
+-->import java.io.Serializable; interface
+-->The Serializable interface must be implemented by the class whose object needs to be persisted.
+-->The String class and all the wrapper classes implement the java.io.Serializable interface by default.
+
+Ex:Serialization
+package yoga;
+import java.io.*;
+public class se implements Serializable
+{
+    String name;
+    int id;
+    //constructor create
+    se(String n,int i)
+    {
+       this.name=n;
+       this.id=i;
+    }
+    public static void main(String args[]) throws IOException
+    {
+        //object create for a class
+        se o=new se("Yoga",100);
+        //File create
+        FileOutputStream f=new FileOutputStream("C:\\Users\\Admin\\Desktop\\sri.txt");
+        //to convert object into byte stream
+        ObjectOutputStream out=new ObjectOutputStream(f);
+        out.writeObject(o);
+        out.flush();
+        out.close();
+    }
+}
+
+Ex:Deserialization
+package yoga;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class de
+{
+    public static void main(String args[]) throws IOException, ClassNotFoundException
+    {
+        //file declare
+        FileInputStream fin=new FileInputStream("C:\\Users\\Admin\\Desktop\\sri.txt");
+        //byte stream converted into object
+        ObjectInputStream oin=new ObjectInputStream(fin);
+        se v=(se) oin.readObject();
+        System.out.println(v.id);
+        System.out.println(v.name);
+    }
+}
+________________________________________________________________________________________
+Localization and Internationalization:
+
+Localization(L10N):
+-->It is also abbreviated as L10N because there are total 10 characters between
+ the first letter 'L' and last letter 'N’.
+-->Localization is the mechanism to create such an application that can
+ be adapted to a specific language and region by adding locale-specific text and component.
+
+ex:
+package yoga;
+
+import java.util.Locale;
+
+public class local
+{
+    public static void main(String args[])
+    {
+        Locale l= Locale.getDefault();
+        System.out.println(l.getCountry());
+        System.out.println(l.getDisplayLanguage());
+        System.out.println(l.getDisplayName());
+    }
+}
+
+
+
+Internationalization(I18N):
+-->It is also abbreviated as I18N because there are total 18 characters
+ between the first letter 'I' and the last letter 'N’.
+-->It is one of the powerful concept of java if you are developing an application 
+and want to display messages,currencies, date, time etc. according to the specific region or language.
+ex:
+package yoga;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
+import java.util.Date;
+import java.util.Locale;
+public class International
+{
+    public static void main(String args[])
+    {
+        Locale enLocale=new Locale("en","US");
+        Locale frLocale=new Locale("fr","FR");
+        Locale esLocale=new Locale("es","ES");
+        System.out.println("English language name (default):"+ enLocale.getDisplayLanguage());
+        System.out.println("English language name in French:"+enLocale.getDisplayLanguage(frLocale));
+        System.out.println("English language name in spanish:"+ enLocale.getDisplayLanguage(esLocale));
+        //Number convert
+        double d = 123456.789;
+        NumberFormat nf
+                = NumberFormat.getCurrencyInstance(Locale.ITALY);
+        NumberFormat nf1
+                = NumberFormat.getInstance(Locale.US);
+        NumberFormat nf2
+                = NumberFormat.getInstance(Locale.CHINA);
+
+        System.out.println("ITALY representation of " + d
+                + " : " + nf.format(d));
+
+        System.out.println("US representation of " + d
+                + " : " + nf1.format(d));
+
+        System.out.println("CHINA representation of " + d
+                + " : " + nf2.format(d));
+            }
+        }________________________________________________________________________________________
+
